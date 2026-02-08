@@ -1,104 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Class 6 Area & Perimeter Test</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    padding: 20px;
+}
+.quiz-box {
+    background: white;
+    padding: 25px;
+    max-width: 750px;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.timer {
+    color: red;
+    font-weight: bold;
+}
+.options label {
+    display: block;
+    margin: 8px 0;
+}
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.correct { color: green; font-weight: bold; }
+.wrong { color: red; font-weight: bold; }
+</style>
+</head>
+
+<body>
+
+<div class="quiz-box" id="quizBox">
+    <h2 id="question"></h2>
+    <div class="timer">Time Left: <span id="time">120</span> sec</div>
+    <div id="options" class="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+</div>
+
 <script>
 const quiz = [
     {
-        q: "Find the perimeter of a square with side 6 cm",
-        options: ["12 cm", "18 cm", "24 cm", "36 cm"],
-        answer: "24 cm"
+        q: "The side of a square is 11 cm. What is its perimeter?",
+        options: ["22 cm", "33 cm", "44 cm", "121 cm"],
+        answer: "44 cm"
     },
     {
-        q: "A rectangle has length 8 cm and breadth 5 cm. What is its perimeter?",
-        options: ["13 cm", "26 cm", "40 cm", "16 cm"],
-        answer: "26 cm"
+        q: "A rectangle has length 14 cm and breadth 6 cm. Find its perimeter.",
+        options: ["20 cm", "28 cm", "40 cm", "42 cm"],
+        answer: "40 cm"
     },
     {
-        q: "Each side of an equilateral triangle is 9 cm. Find its perimeter.",
-        options: ["18 cm", "27 cm", "36 cm", "9 cm"],
-        answer: "27 cm"
+        q: "Each side of a regular pentagon is 5 cm. What is its perimeter?",
+        options: ["20 cm", "25 cm", "30 cm", "35 cm"],
+        answer: "25 cm"
     },
     {
-        q: "What is the perimeter of a square whose side is 10 m?",
-        options: ["20 m", "30 m", "40 m", "100 m"],
-        answer: "40 m"
+        q: "The perimeter of a square is 36 cm. Find the length of one side.",
+        options: ["6 cm", "9 cm", "12 cm", "18 cm"],
+        answer: "9 cm"
     },
     {
-        q: "A rectangle has length 12 m and breadth 3 m. Find its perimeter.",
-        options: ["30 m", "24 m", "36 m", "18 m"],
-        answer: "30 m"
+        q: "A rectangle has perimeter 50 cm. If its length is 15 cm, find its breadth.",
+        options: ["10 cm", "5 cm", "20 cm", "25 cm"],
+        answer: "10 cm"
     },
     {
-        q: "If the perimeter of a square is 24 cm, what is the length of one side?",
-        options: ["4 cm", "6 cm", "8 cm", "12 cm"],
-        answer: "6 cm"
+        q: "Find the area of a square whose side is 8 cm.",
+        options: ["16 sq cm", "32 sq cm", "64 sq cm", "24 sq cm"],
+        answer: "64 sq cm"
     },
     {
-        q: "The perimeter of a rectangle is 30 cm. If the length is 8 cm, find the breadth.",
-        options: ["7 cm", "8 cm", "15 cm", "4 cm"],
+        q: "What is the area of a rectangle 7 cm long and 5 cm wide?",
+        options: ["12 sq cm", "35 sq cm", "70 sq cm", "25 sq cm"],
+        answer: "35 sq cm"
+    },
+    {
+        q: "The area of a square is 81 sq cm. Find the length of one side.",
+        options: ["8 cm", "9 cm", "18 cm", "27 cm"],
+        answer: "9 cm"
+    },
+    {
+        q: "The area of a rectangle is 40 sq cm. If its breadth is 5 cm, find its length.",
+        options: ["5 cm", "8 cm", "10 cm", "20 cm"],
+        answer: "8 cm"
+    },
+    {
+        q: "A garden is 20 m long and 4 m wide. What is its area?",
+        options: ["24 sq m", "80 sq m", "40 sq m", "60 sq m"],
+        answer: "80 sq m"
+    },
+    {
+        q: "The side of a square is 15 m. What is its area?",
+        options: ["30 sq m", "225 sq m", "60 sq m", "150 sq m"],
+        answer: "225 sq m"
+    },
+    {
+        q: "Which shape has the smallest perimeter if all sides are 6 cm?",
+        options: ["Square", "Triangle", "Rectangle", "Pentagon"],
+        answer: "Triangle"
+    },
+    {
+        q: "A rectangle has length 9 cm and breadth 3 cm. What is its area?",
+        options: ["12 sq cm", "27 sq cm", "18 sq cm", "36 sq cm"],
+        answer: "27 sq cm"
+    },
+    {
+        q: "The perimeter of a triangle is 21 cm. If two sides are 7 cm each, find the third side.",
+        options: ["5 cm", "6 cm", "7 cm", "8 cm"],
         answer: "7 cm"
     },
     {
-        q: "A triangle has sides 5 cm, 7 cm, and 8 cm. Find its perimeter.",
-        options: ["18 cm", "20 cm", "15 cm", "10 cm"],
-        answer: "20 cm"
+        q: "If the length of a rectangle is doubled, its area becomes",
+        options: ["Same", "Double", "Four times", "Half"],
+        answer: "Double"
     },
     {
-        q: "Each side of a shape is 4 cm and its perimeter is 20 cm. How many sides does it have?",
-        options: ["4", "5", "6", "8"],
-        answer: "5"
+        q: "How many square tiles of side 1 m are needed to cover a floor of area 12 sq m?",
+        options: ["6", "10", "12", "24"],
+        answer: "12"
     },
     {
-        q: "Find the area of a square with side 7 cm.",
-        options: ["14 sq cm", "21 sq cm", "49 sq cm", "28 sq cm"],
-        answer: "49 sq cm"
+        q: "The perimeter of a square is 48 cm. What is its area?",
+        options: ["144 sq cm", "192 sq cm", "256 sq cm", "576 sq cm"],
+        answer: "144 sq cm"
     },
     {
-        q: "What is the area of a rectangle of length 9 cm and breadth 4 cm?",
-        options: ["13 sq cm", "36 sq cm", "18 sq cm", "45 sq cm"],
-        answer: "36 sq cm"
+        q: "A rectangular field is 18 m long and 10 m wide. Find its perimeter.",
+        options: ["36 m", "46 m", "56 m", "28 m"],
+        answer: "56 m"
     },
     {
-        q: "A square has side 5 m. What is its area?",
-        options: ["10 sq m", "20 sq m", "25 sq m", "15 sq m"],
-        answer: "25 sq m"
+        q: "Which unit is suitable to measure the area of a classroom?",
+        options: ["cm", "m", "sq m", "sq cm"],
+        answer: "sq m"
     },
     {
-        q: "The area of a rectangle is 24 sq cm. If the length is 6 cm, find the breadth.",
-        options: ["2 cm", "3 cm", "4 cm", "6 cm"],
-        answer: "4 cm"
-    },
-    {
-        q: "Find the area of a rectangle with length 10 m and breadth 2 m.",
-        options: ["12 sq m", "20 sq m", "24 sq m", "40 sq m"],
-        answer: "20 sq m"
-    },
-    {
-        q: "The area of a square is 36 sq cm. Find the length of one side.",
-        options: ["12 cm", "6 cm", "9 cm", "18 cm"],
-        answer: "6 cm"
-    },
-    {
-        q: "A rectangular garden is 12 m long and 5 m wide. Find its area.",
-        options: ["17 sq m", "60 sq m", "120 sq m", "30 sq m"],
-        answer: "60 sq m"
-    },
-    {
-        q: "Area is measured in",
-        options: ["cm", "m", "square units", "units"],
-        answer: "square units"
-    },
-    {
-        q: "Perimeter is measured in",
-        options: ["square units", "cm²", "units", "cubic units"],
-        answer: "units"
-    },
-    {
-        q: "If the side of a square is doubled, its area becomes",
-        options: ["Double", "Triple", "Four times", "Same"],
-        answer: "Four times"
-    },
-    {
-        q: "Can two rectangles have the same area but different perimeters?",
-        options: ["Yes", "No", "Only squares", "Only triangles"],
-        answer: "Yes"
+        q: "Two rectangles have the same perimeter. Their areas are",
+        options: ["Always same", "Always different", "May be same or different", "Zero"],
+        answer: "May be same or different"
     }
 ];
 </script>
+
+let index = 0;
+let timeLeft = 120;
+let timer;
+let userAnswers = [];
+
+function loadQuestion() {
+    clearInterval(timer);
+    timeLeft = 120;
+    document.getElementById("time").innerText = timeLeft;
+
+    const q = quiz[index];
+    document.getElementById("question").innerText = `Q${index+1}. ${q.q}`;
+
+    const optDiv = document.getElementById("options");
+    optDiv.innerHTML = "";
+
+    q.options.forEach(opt => {
+        optDiv.innerHTML += `
+        <label>
+            <input type="radio" name="option" value="${opt}">
+            ${opt}
+        </label>`;
+    });
+
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("time").innerText = timeLeft;
+        if (timeLeft === 0) nextQuestion();
+    }, 1000);
+}
+
+function nextQuestion() {
+    clearInterval(timer);
+
+    const selected = document.querySelector('input[name="option"]:checked');
+    userAnswers.push(selected ? selected.value : "Not Answered");
+
+    index++;
+    if (index < quiz.length) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    let score = 0;
+    let resultHTML = `<h2>Result Summary</h2>`;
+
+    quiz.forEach((q, i) => {
+        let status;
+        if (userAnswers[i] === q.answer) {
+            status = `<span class="correct">✔ Correct</span>`;
+            score++;
+        } else {
+            status = `<span class="wrong">❌ Wrong</span>`;
+        }
+
+        resultHTML += `
+        <p>
+            <b>Q${i+1}:</b> ${q.q}<br>
+            Your Answer: ${userAnswers[i]}<br>
+            Correct Answer: ${q.answer}<br>
+            ${status} (1 Mark)
+        </p>
+        <hr>`;
+    });
+
+    resultHTML += `<h3>Total Marks: ${score} / ${quiz.length}</h3>`;
+
+    document.getElementById("quizBox").innerHTML = resultHTML;
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
